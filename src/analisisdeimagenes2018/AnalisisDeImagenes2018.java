@@ -5,6 +5,10 @@
  */
 package analisisdeimagenes2018;
 
+import gui.ImageJFrame;
+import java.awt.Image;
+import lectura.ImageManager;
+
 /**
  *
  * @author Roberto Cruz Leija
@@ -15,7 +19,9 @@ public class AnalisisDeImagenes2018 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Image aux = ImageManager.openImage();
+        ImageJFrame frame = new ImageJFrame(aux);
+        System.out.println();
     }
     
 }
