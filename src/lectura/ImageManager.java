@@ -5,6 +5,7 @@
  */
 package lectura;
 
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -60,10 +61,18 @@ public class ImageManager {
     }
     
     public static BufferedImage toBufferedImage (Image imagen){
-          
-        BufferedImage bi = new BufferedImage(imagen.getWidth(null), imagen.getHeight(null), BufferedImage.TYPE_INT_RGB);
+         // imagen es un objeto de tipo BufferedImage
+        if (imagen instanceof BufferedImage){
+          return (BufferedImage)imagen;
+        }
+        BufferedImage bi = 
+                new BufferedImage(imagen.getWidth(null), imagen.getHeight(null), BufferedImage.TYPE_INT_RGB);
         
-        return null;
+        Graphics2D nueva = bi.createGraphics();
+        nueva.drawImage(imagen, 0, 0,null);
+        nueva.dispose();
+        
+        return bi;
     }
     
 }
