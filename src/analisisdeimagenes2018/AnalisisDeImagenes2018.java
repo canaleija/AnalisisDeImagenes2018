@@ -5,7 +5,7 @@
  */
 package analisisdeimagenes2018;
 
-import filtrosespaciales.Binarizacion;
+import filtrosespaciales.FiltroEspacial;
 import gui.ImageJFrame;
 import java.awt.Color;
 import java.awt.Image;
@@ -24,7 +24,7 @@ public class AnalisisDeImagenes2018 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Image aux = ImageManager.openImage();
+        Image aux = FiltroEspacial.generaEscalaGrises(ImageManager.openImage());
         ImageJFrame frame = new ImageJFrame(aux);
       
         
@@ -40,7 +40,7 @@ public class AnalisisDeImagenes2018 {
         
         grafica.crearYmostrarGrafica();
         
-        Image modificada = Binarizacion.umbralizacionSimple(100,200, aux);        
+        Image modificada = FiltroEspacial.umbralizacionSimple(120,140, aux);        
         ImageJFrame frame2 = new ImageJFrame(modificada);
         hRojo = HistogramaFrecuencias.calcularHistograma(1, modificada);
         hVerde = HistogramaFrecuencias.calcularHistograma(2, modificada);

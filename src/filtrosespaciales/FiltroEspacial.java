@@ -10,13 +10,14 @@ import java.awt.Color;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import lectura.ImageManager;
+import org.jfree.chart.ChartColor;
 
 
 /**
  *
  * @author Roberto Cruz Leija
  */
-public class Binarizacion {
+public class FiltroEspacial {
     
    
     public static Image umbralizacionSimple(int umbral, Image imagenOriginal){
@@ -31,11 +32,11 @@ public class Binarizacion {
                 int b = pixel.getBlue();
                 // modificamos el rojo 
                 if(pixel.getRed()<umbral)
-                    r = 0;
+                    r = 255;
                 if(pixel.getGreen()<umbral)
-                    g = 0;
+                    g = 255;
                 if(pixel.getBlue()<umbral)
-                    b = 0;
+                    b = 255;
                 pixel = new Color(r, g, b);
                 aux.setRGB(x, y, pixel.getRGB());
             
@@ -69,4 +70,26 @@ public class Binarizacion {
     
     }
     
+    public static Image generaEscalaGrises(Image original){
+    
+        BufferedImage aux = ImageManager.toBufferedImage(original);
+        
+        // recorremos la imagen
+        // recorremos la imagen
+        for (int x=0; x< aux.getWidth();x++)
+            for(int y=0; y< aux.getHeight();y++){
+              // obtener el color
+              Color pixel = new Color(aux.getRGB(x, y));
+              // en base a la clase color definimos un solo tono 
+              // para los 3 canales RGB
+              // con la premisa de reducir de 2exp24 a 2exp8
+              int nuevo = (pixel.getRed()+pixel.getGreen()+pixel.getBlue())/3;
+              pixel  = new Color(nuevo, nuevo, nuevo);
+              aux.setRGB(x, y, pixel.getRGB());
+            
+            
+            }
+    
+      return ImageManager.toImage(aux);
+    }
 }
