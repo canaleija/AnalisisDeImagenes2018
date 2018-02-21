@@ -40,7 +40,7 @@ public class AnalisisDeImagenes2018 {
         
         grafica.crearYmostrarGrafica();
         
-        Image modificada = FiltroEspacial.umbralizacionSimple(120,140, aux);        
+        Image modificada = FiltroEspacial.iluminarImagen(aux,100);        
         ImageJFrame frame2 = new ImageJFrame(modificada);
         hRojo = HistogramaFrecuencias.calcularHistograma(1, modificada);
         hVerde = HistogramaFrecuencias.calcularHistograma(2, modificada);

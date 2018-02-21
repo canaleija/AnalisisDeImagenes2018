@@ -31,11 +31,11 @@ public class FiltroEspacial {
                 int g = pixel.getGreen();
                 int b = pixel.getBlue();
                 // modificamos el rojo 
-                if(pixel.getRed()<umbral)
+                if(pixel.getRed()>umbral)
                     r = 255;
-                if(pixel.getGreen()<umbral)
+                if(pixel.getGreen()>umbral)
                     g = 255;
-                if(pixel.getBlue()<umbral)
+                if(pixel.getBlue()>umbral)
                     b = 255;
                 pixel = new Color(r, g, b);
                 aux.setRGB(x, y, pixel.getRGB());
@@ -92,4 +92,34 @@ public class FiltroEspacial {
     
       return ImageManager.toImage(aux);
     }
+
+    public static Image iluminarImagen(Image original, int valor){
+        BufferedImage aux = ImageManager.toBufferedImage(original);
+        
+        // recorremos la imagen
+        // recorremos la imagen
+        for (int x=0; x< aux.getWidth();x++)
+            for(int y=0; y< aux.getHeight();y++){
+              // obtener el color
+              Color pixel = new Color(aux.getRGB(x, y));
+              int r = pixel.getRed()+valor;
+              int g = pixel.getGreen()+valor;
+              int b = pixel.getBlue()+valor;
+            // validamos 
+            if(r<0)r=0;
+            if(r>255)r=255;
+            if(g<0)g=0;
+            if(g>255)g=255;
+            if(b<0)b=0;
+            if(b>255)b=255;
+            
+            pixel = new Color(r, g, b);
+            aux.setRGB(x, y, pixel.getRGB());
+            }
+    
+      return ImageManager.toImage(aux);
+    }
+
+
+
 }
