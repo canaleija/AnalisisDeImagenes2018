@@ -5,6 +5,7 @@
  */
 package analisisdeimagenes2018;
 
+import filtrosespaciales.ExpansionHistograma;
 import filtrosespaciales.FiltroEspacial;
 import gui.ImageJFrame;
 import java.awt.Color;
@@ -29,27 +30,26 @@ public class AnalisisDeImagenes2018 {
       
         
         // 3 histogramas 
-        double hRojo []= HistogramaFrecuencias.calcularHistograma(1, aux);
-        double hVerde []= HistogramaFrecuencias.calcularHistograma(2, aux);
-        double hAzul []= HistogramaFrecuencias.calcularHistograma(3, aux);
+        double hGrises []= HistogramaFrecuencias.calcularHistograma(1, aux);
+
           
         Grafica grafica = new Grafica("Tono","Frecuencia","Frecuencias de Color");
-        grafica.agregarSerie("Rojo", hRojo);
-        grafica.agregarSerie("Azul", hAzul);
-        grafica.agregarSerie("Verde", hVerde);
+        grafica.agregarSerie("Gris", hGrises);
         
         grafica.crearYmostrarGrafica();
         
-        Image modificada = FiltroEspacial.iluminarImagen(aux,100);        
-        ImageJFrame frame2 = new ImageJFrame(modificada);
-        hRojo = HistogramaFrecuencias.calcularHistograma(1, modificada);
-        hVerde = HistogramaFrecuencias.calcularHistograma(2, modificada);
-        hAzul = HistogramaFrecuencias.calcularHistograma(3, modificada);
+        /// calcular el rango
+        int r1 = ExpansionHistograma.calcularMinimo(hGrises);
+        int r2 = ExpansionHistograma.calcularMaximo(hGrises);
+        System.out.println(r1);
+        System.out.println(r2);
         
+        Image imagenContraste =ExpansionHistograma.expansionLineal(129, 169, aux);        
+        ImageJFrame frame2 = new ImageJFrame(imagenContraste);
+        hGrises= HistogramaFrecuencias.calcularHistograma(1, imagenContraste);
+
         Grafica grafica2 = new Grafica("Tono","Frecuencia","Frecuencias de Color");
-        grafica2.agregarSerie("Rojo", hRojo);
-        grafica2.agregarSerie("Azul", hAzul);
-        grafica2.agregarSerie("Verde", hVerde);
+        grafica2.agregarSerie("Gris", hGrises);
         
         grafica2.crearYmostrarGrafica();
     }
