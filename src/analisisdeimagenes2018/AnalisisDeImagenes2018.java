@@ -44,7 +44,7 @@ public class AnalisisDeImagenes2018 {
         System.out.println(r1);
         System.out.println(r2);
         
-        Image imagenContraste =ExpansionHistograma.expansionLineal(129, 169, aux);        
+        Image imagenContraste =ExpansionHistograma.expansionLineal(r1, r2, aux);        
         ImageJFrame frame2 = new ImageJFrame(imagenContraste);
         hGrises= HistogramaFrecuencias.calcularHistograma(1, imagenContraste);
 
