@@ -7,6 +7,7 @@ package analisisdeimagenes2018;
 
 import filtrosespaciales.ExpansionHistograma;
 import filtrosespaciales.FiltroEspacial;
+import filtrosespaciales.UmbralAutomatico;
 import gui.ImageJFrame;
 import java.awt.Color;
 import java.awt.Image;
@@ -28,7 +29,6 @@ public class AnalisisDeImagenes2018 {
         Image aux = FiltroEspacial.generaEscalaGrises(ImageManager.openImage());
         ImageJFrame frame = new ImageJFrame(aux);
       
-        
         // 3 histogramas 
         double hGrises []= HistogramaFrecuencias.calcularHistograma(1, aux);
 
@@ -37,21 +37,12 @@ public class AnalisisDeImagenes2018 {
         grafica.agregarSerie("Gris", hGrises);
         
         grafica.crearYmostrarGrafica();
+        int umbral = UmbralAutomatico.metodoIterativo(hGrises);
+       
+        Image bi = FiltroEspacial.umbralizacionSimple(umbral, aux);
+        ImageJFrame frame2 = new ImageJFrame(bi);
         
-        /// calcular el rango
-        int r1 = ExpansionHistograma.calcularMinimo(hGrises);
-        int r2 = ExpansionHistograma.calcularMaximo(hGrises);
-        System.out.println(r1);
-        System.out.println(r2);
-        
-        Image imagenContraste =ExpansionHistograma.expansionLineal(r1, r2, aux);        
-        ImageJFrame frame2 = new ImageJFrame(imagenContraste);
-        hGrises= HistogramaFrecuencias.calcularHistograma(1, imagenContraste);
-
-        Grafica grafica2 = new Grafica("Tono","Frecuencia","Frecuencias de Color");
-        grafica2.agregarSerie("Gris", hGrises);
-        
-        grafica2.crearYmostrarGrafica();
+        System.out.println();
     }
     
 }
