@@ -5,6 +5,7 @@
  */
 package analisisdeimagenes2018;
 
+import filtrosespaciales.DispersionHistograma;
 import filtrosespaciales.ExpansionHistograma;
 import filtrosespaciales.FiltroEspacial;
 import filtrosespaciales.UmbralAutomatico;
@@ -33,16 +34,16 @@ public class AnalisisDeImagenes2018 {
           
         
         
-        Image ilog = ExpansionHistograma.expansionExp(aux,1);
-        ImageJFrame frame2 = new ImageJFrame(ilog);
+        Image iEcu = DispersionHistograma.ecualizarHistograma(hGrises, aux);
+        ImageJFrame frame2 = new ImageJFrame(iEcu);
        
-        double hilog []= HistogramaFrecuencias.calcularHistograma(1,ilog);
+        double hecu []= HistogramaFrecuencias.calcularHistograma(1,iEcu);
 
         
         
         Grafica grafica = new Grafica("Tono","Frecuencia","Frecuencias de Color");
         grafica.agregarSerie("Gris", hGrises);
-        grafica.agregarSerie("Gris2", hilog);
+        grafica.agregarSerie("Gris2", hecu);
         
         grafica.crearYmostrarGrafica();
 //        int umbral = UmbralAutomatico.metodoIterativo(hGrises);
