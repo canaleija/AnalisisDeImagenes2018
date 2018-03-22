@@ -5,6 +5,7 @@
  */
 package analisisdeimagenes2018;
 
+import filtrosespaciales.Convolucion;
 import filtrosespaciales.DispersionHistograma;
 import filtrosespaciales.ExpansionHistograma;
 import filtrosespaciales.FiltroEspacial;
@@ -25,32 +26,14 @@ public class AnalisisDeImagenes2018 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Image aux = FiltroEspacial.generaEscalaGrises(ImageManager.openImage());
+        Image aux = ImageManager.openImage();
         ImageJFrame frame = new ImageJFrame(aux);
+        int kernel [][] = new int[][]{{2,1,1,1,1},{2,1,1,1,1},{2,1,1,1,1},{2,1,1,1,1},{2,1,1,1,1}};
+        Convolucion convo = new Convolucion(aux);
+        Image nueva = convo.aplicar(kernel, 1);
+        ImageJFrame frame2 = new ImageJFrame(nueva);
       
-        // 3 histogramas 
-        double hGrises []= HistogramaFrecuencias.calcularHistograma(1, aux);
-
-          
-        
-        
-        Image iEcu = DispersionHistograma.ecualizarHistograma(hGrises, aux);
-        ImageJFrame frame2 = new ImageJFrame(iEcu);
-       
-        double hecu []= HistogramaFrecuencias.calcularHistograma(1,iEcu);
-
-        
-        
-        Grafica grafica = new Grafica("Tono","Frecuencia","Frecuencias de Color");
-        grafica.agregarSerie("Gris", hGrises);
-        grafica.agregarSerie("Gris2", hecu);
-        
-        grafica.crearYmostrarGrafica();
-//        int umbral = UmbralAutomatico.metodoIterativo(hGrises);
-//       
-//        Image bi = FiltroEspacial.umbralizacionSimple(umbral, aux);
-//        ImageJFrame frame2 = new ImageJFrame(bi);
-//        
+      
         System.out.println();
     }
     

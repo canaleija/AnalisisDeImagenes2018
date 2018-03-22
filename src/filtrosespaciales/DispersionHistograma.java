@@ -24,9 +24,9 @@ public class DispersionHistograma {
           double tmp = 0;
         for(int i=0; i <=g;i++)
             tmp+=histograma[i];
-      
+        
         tmp/=nxm;
-        ecualizacion[g]= (int)(tmp*255);
+        ecualizacion[g]= (int)Math.round(tmp*255);
       }
       // modificamos la imagen 
         BufferedImage bio = ImageManager.toBufferedImage(imagenOriginal);
