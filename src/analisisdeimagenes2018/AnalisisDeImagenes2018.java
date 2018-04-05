@@ -9,9 +9,11 @@ import filtrosespaciales.Convolucion;
 import filtrosespaciales.DispersionHistograma;
 import filtrosespaciales.ExpansionHistograma;
 import filtrosespaciales.FiltroEspacial;
+import filtrosespaciales.ReduccionRuido;
 import filtrosespaciales.UmbralAutomatico;
 import gui.ImageJFrame;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import lectura.Grafica;
 import lectura.HistogramaFrecuencias;
 import lectura.ImageManager;
@@ -28,9 +30,9 @@ public class AnalisisDeImagenes2018 {
     public static void main(String[] args) {
         Image aux = ImageManager.openImage();
         ImageJFrame frame = new ImageJFrame(aux);
-        int kernel [][] = new int[][]{{2,1,1,1,1},{2,1,1,1,1},{2,1,1,1,1},{2,1,1,1,1},{2,1,1,1,1}};
-        Convolucion convo = new Convolucion(aux);
-        Image nueva = convo.aplicar(kernel, 1);
+        BufferedImage res = ImageManager.toBufferedImage(aux);
+        ReduccionRuido.reduccionPorMediana(res, 3);
+       Image nueva = ImageManager.toImage(res);
         ImageJFrame frame2 = new ImageJFrame(nueva);
       
       
