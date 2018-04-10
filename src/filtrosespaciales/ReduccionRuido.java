@@ -34,8 +34,8 @@ public class ReduccionRuido {
         ArrayList<Integer> datosVerde = new ArrayList<>();
         ArrayList<Integer> datosAzul = new ArrayList<>();
         // recorremos la imagen 
-         for(int i=x-(dim-1)/2;i<x+(dim-1)/2;i++){
-            for(int j=y-(dim-1)/2;j<y+(dim-1)/2;j++){
+         for(int i=x-(dim-1)/2;i<=x+(dim-1)/2;i++){
+            for(int j=y-(dim-1)/2;j<=y+(dim-1)/2;j++){
                 Color color;
                 try {
                     color = new Color(io.getRGB(i, j));
@@ -44,6 +44,7 @@ public class ReduccionRuido {
                     datosAzul.add(color.getBlue());
                 } catch (Exception e) {
                     // no agregamos nada
+                    System.out.println();
                 }
             }
          }
