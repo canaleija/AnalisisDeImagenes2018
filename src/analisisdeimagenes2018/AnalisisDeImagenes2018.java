@@ -22,13 +22,10 @@ public class AnalisisDeImagenes2018 {
     public static void main(String[] args) {
         Image aux = ImageManager.openImage();
         ImageJFrame frame = new ImageJFrame(aux);
-        double[][] kernel =  
-         {{0.0, 0.0, 0.0}, 
-{0.0, 1.0, -1.0},
- {0.0, 0.0, 0.0}};
+      
 
         Convolucion convo = new Convolucion(aux);
-        Image res = convo.aplicar(kernel, 1);
+        Image res = convo.aplicarKirsch(1);
                 
         
        // Image nueva = ImageManager.toImage(res);
