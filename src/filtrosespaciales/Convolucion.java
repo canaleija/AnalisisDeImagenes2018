@@ -18,7 +18,7 @@ public class Convolucion {
     
     private int dim;
     private Image imagenOriginal;
-    private int kernel[][];
+    private double kernel[][];
 
     public Convolucion(Image imagenOriginal) {
         this.dim = 0;
@@ -26,17 +26,17 @@ public class Convolucion {
         this.kernel = null;
     }
     
-    public Image aplicar(int kernel[][], int divisor){
+    public Image aplicar(double kernel[][], int divisor){
        this.dim = kernel[0].length;
        this.kernel = kernel;
        BufferedImage nueva = new BufferedImage(this.imagenOriginal.getWidth(null),this.imagenOriginal.getHeight(null),BufferedImage.TYPE_INT_RGB);
-        BufferedImage bi = ImageManager.toBufferedImage(imagenOriginal);
+       BufferedImage bi = ImageManager.toBufferedImage(imagenOriginal);
         
        //System.out.println("W:"+nueva.getWidth()+"H:"+nueva.getHeight());
        //proceso iterativo para generar un imagen nueva
        for(int x=0; x<this.imagenOriginal.getWidth(null);x++){
            for(int y=0; y<this.imagenOriginal.getHeight(null);y++){
-            int muestra[][] =extraerMuestra(x,y,bi);
+           double muestra[][] =extraerMuestra(x,y,bi);
             //System.out.println(x+","+y);
             // validar que la muestra se generó 
             if(muestra!=null){
@@ -56,14 +56,14 @@ public class Convolucion {
        return ImageManager.toImage(nueva);
     }
 
-    private int[][] extraerMuestra(int x, int y, BufferedImage bi) {
-        int matriz[][] = new int[this.kernel[0].length][this.kernel[0].length];
+    private double[][] extraerMuestra(int x, int y, BufferedImage bi) {
+        double matriz[][] = new double[this.kernel[0].length][this.kernel[0].length];
        int xx=0;
         int yy=0;
         try {
          // recorremos la imagen 
-         for(int i=x-(this.kernel[0].length-1)/2;i<x+(this.kernel[0].length-1)/2;i++){
-            for(int j=y-(this.kernel[0].length-1)/2;j<y+(this.kernel[0].length-1)/2;j++){
+         for(int i=x-(this.kernel[0].length-1)/2;i<=x+(this.kernel[0].length-1)/2;i++){
+            for(int j=y-(this.kernel[0].length-1)/2;j<=y+(this.kernel[0].length-1)/2;j++){
             matriz[xx][yy] = bi.getRGB(i,j);
             yy++;
             }
@@ -78,7 +78,7 @@ public class Convolucion {
        
     }
 
-    private Color convulacionar(int[][] kernel, int[][] muestra, int divisor) {
+    private Color convulacionar(double[][] kernel, double[][] muestra, int divisor) {
         int acumuladorR = 0;
         int acumuladorG = 0;
         int acumuladorB = 0;
@@ -86,7 +86,7 @@ public class Convolucion {
         // recorremos el kernel y la muestra 
         for(int x=0; x<kernel[0].length;x++)
             for(int y=0; y<kernel[0].length;y++){
-         aux = new Color(muestra[x][y]);
+         aux = new Color((int)muestra[x][y]);
          acumuladorR+=(kernel[x][y]*aux.getRed());
          acumuladorG+=(kernel[x][y]*aux.getGreen());
          acumuladorB+=(kernel[x][y]*aux.getBlue());

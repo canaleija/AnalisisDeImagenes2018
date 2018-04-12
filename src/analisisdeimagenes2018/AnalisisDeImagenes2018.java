@@ -6,16 +6,8 @@
 package analisisdeimagenes2018;
 
 import filtrosespaciales.Convolucion;
-import filtrosespaciales.DispersionHistograma;
-import filtrosespaciales.ExpansionHistograma;
-import filtrosespaciales.FiltroEspacial;
-import filtrosespaciales.ReduccionRuido;
-import filtrosespaciales.UmbralAutomatico;
 import gui.ImageJFrame;
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import lectura.Grafica;
-import lectura.HistogramaFrecuencias;
 import lectura.ImageManager;
 
 /**
@@ -30,10 +22,17 @@ public class AnalisisDeImagenes2018 {
     public static void main(String[] args) {
         Image aux = ImageManager.openImage();
         ImageJFrame frame = new ImageJFrame(aux);
-        BufferedImage res = ImageManager.toBufferedImage(aux);
-        ReduccionRuido.reduccionPorMediana(res, 3);
-       Image nueva = ImageManager.toImage(res);
-        ImageJFrame frame2 = new ImageJFrame(nueva);
+        double[][] kernel =  
+         {{0.0, 0.0, 0.0}, 
+{0.0, 1.0, -1.0},
+ {0.0, 0.0, 0.0}};
+
+        Convolucion convo = new Convolucion(aux);
+        Image res = convo.aplicar(kernel, 1);
+                
+        
+       // Image nueva = ImageManager.toImage(res);
+        ImageJFrame frame2 = new ImageJFrame(res);
       
       
         System.out.println();
