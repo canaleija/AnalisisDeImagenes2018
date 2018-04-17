@@ -6,6 +6,7 @@
 package analisisdeimagenes2018;
 
 import filtrosespaciales.Convolucion;
+import filtrosespaciales.Temperatura;
 import gui.ImageJFrame;
 import java.awt.Image;
 import lectura.ImageManager;
@@ -23,13 +24,12 @@ public class AnalisisDeImagenes2018 {
         Image aux = ImageManager.openImage();
         ImageJFrame frame = new ImageJFrame(aux);
       
-
-        Convolucion convo = new Convolucion(aux);
-        Image res = convo.aplicarKirsch(1);
-                
+        Image i1 = Temperatura.modificarTemeratura(aux, -100);
+        Image i2 = Temperatura.modificarTemeratura(aux, 100);
         
-       // Image nueva = ImageManager.toImage(res);
-        ImageJFrame frame2 = new ImageJFrame(res);
+       
+        ImageJFrame frame2 = new ImageJFrame(i1);
+        ImageJFrame frame3 = new ImageJFrame(i2);
       
       
         System.out.println();

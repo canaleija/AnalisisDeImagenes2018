@@ -6,9 +6,12 @@
 package filtrosespaciales;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
+import lectura.ImageManager;
 
 /**
  *
@@ -101,4 +104,41 @@ public class ReduccionRuido {
         // creamos el nuevo color y retornamos el RGB
         return new Color(r, g, b).getRGB();
     }
+    
+    public static Image GenerarRuidoNegro(BufferedImage io, int porcentage){
+        int tp=io.getHeight()*io.getWidth();
+        int pix=(tp*porcentage)/100;
+        Random r= new Random();
+        Color c= new Color(0,0,0);
+        for(int x=1;x<pix;x++){
+            io.setRGB(r.nextInt(io.getWidth()),r.nextInt(io.getHeight()) , c.getRGB());
+        }
+        return ImageManager.toImage(io);
+        
     }
+    public static Image GenerarRuidoBlanco(BufferedImage io, int porcentage){
+        int tp=io.getHeight()*io.getWidth();
+        int pix=(tp*porcentage)/100;
+        Random r= new Random();
+        Color c= new Color(255,255,255);
+        for(int x=1;x<pix;x++){
+            io.setRGB(r.nextInt(io.getWidth()),r.nextInt(io.getHeight()) , c.getRGB());
+        }
+        return ImageManager.toImage(io);
+        
+    }
+    public static Image GenerarRuidoMixto(BufferedImage io, int porcentage){
+        int tp=io.getHeight()*io.getWidth();
+        int pix=(tp*porcentage)/100;
+        pix=pix/2;
+        Random r= new Random();
+        Color c;
+        for(int x=1;x<pix;x++){
+            c= new Color(0,0,0);
+            io.setRGB(r.nextInt(io.getWidth()),r.nextInt(io.getHeight()) , c.getRGB());
+            c= new Color(255,255,255);
+            io.setRGB(r.nextInt(io.getWidth()),r.nextInt(io.getHeight()) , c.getRGB());
+        }        
+        return ImageManager.toImage(io);
+    }
+ }
