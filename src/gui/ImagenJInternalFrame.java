@@ -78,4 +78,11 @@ public class ImagenJInternalFrame extends javax.swing.JInternalFrame {
     public void setImagenOriginal(Image imagenOriginal) {
         this.imagenOriginal = imagenOriginal;
     }
+    
+    public void modificarImagen(Image imagen){
+     // mandar la imagen como icono al jlabel
+       
+     this.jLabelImagen.setIcon(new ImageIcon(imagen));
+        
+    }
 }
