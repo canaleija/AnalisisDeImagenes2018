@@ -5,12 +5,12 @@
  */
 package analisisdeimagenes2018;
 
-import filtrosespaciales.Convolucion;
-import filtrosespaciales.Temperatura;
+import analisisenfrecuencias.filtros.FiltroButterworthyPasaBajas;
+import analisisenfrecuencias.filtros.FiltroIdealPasaAltas;
+import analisisenfrecuencias.filtros.FiltroIdealPasaBajas;
 import gui.ImageJFrame;
-import gui.PrincipalJFrame;
+import java.awt.Dimension;
 import java.awt.Image;
-import lectura.ImageManager;
 
 /**
  *
@@ -22,19 +22,12 @@ public class AnalisisDeImagenes2018 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-//        Image aux = ImageManager.openImage();
-//        ImageJFrame frame = new ImageJFrame(aux);
-//      
-//        Image i1 = Temperatura.modificarTemeratura(aux, -100);
-//        Image i2 = Temperatura.modificarTemeratura(aux, 100);
-//        
-//       
-//        ImageJFrame frame2 = new ImageJFrame(i1);
-//        ImageJFrame frame3 = new ImageJFrame(i2);
-//      
-        PrincipalJFrame principal = new PrincipalJFrame();
-        principal.setVisible(true);
-        System.out.println();
+
+        FiltroButterworthyPasaBajas filtro = new FiltroButterworthyPasaBajas(170, new Dimension(512,512),10);
+        
+        Image ifiltro = filtro.crearFiltro();
+        
+        ImageJFrame frame = new ImageJFrame(ifiltro);
     }
     
 }
