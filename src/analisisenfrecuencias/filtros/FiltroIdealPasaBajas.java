@@ -5,6 +5,7 @@
  */
 package analisisenfrecuencias.filtros;
 
+import analisisenfrecuencias.FFT.NumeroComplejo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -19,21 +20,21 @@ public class FiltroIdealPasaBajas extends FiltroFrecuencia{
 
     private int radio;
     private Dimension dim;
+    private Image imagen;
     
     public FiltroIdealPasaBajas(int radio, Dimension dim) {
         super((int)dim.getWidth(),(int) dim.getHeight());
         this.radio = radio;
         this.dim = dim;
+        this.imagen = null;
     }
    
     @Override
-    public Image crearFiltro() {
-       // incializar el buffer
-        BufferedImage bi = new BufferedImage((int)dim.getWidth(),
-                     (int)dim.getHeight(), BufferedImage.TYPE_INT_ARGB);
-    int tamanoImagen = bi.getWidth();
-    for(int i=0; i < bi.getWidth();i++){
-        for(int j=0; j < bi.getHeight();j++){
+    public void crearFiltro() {
+       
+    int tamanoImagen = (int)dim.getWidth();
+    for(int i=0; i < tamanoImagen;i++){
+        for(int j=0; j < tamanoImagen;j++){
             int u = -1*(tamanoImagen/2)+i;
             int v = (tamanoImagen/2)-j;
             
@@ -43,23 +44,31 @@ public class FiltroIdealPasaBajas extends FiltroFrecuencia{
                 // asignamos el valor al filtro
                 getFiltroEspacial()[i][j] = new NumeroComplejo(1, 1);
                 // asignamos el valor a la imagen
-                bi.setRGB(i, j, new Color(255, 255, 255).getRGB());
+                // bi.setRGB(i, j, new Color(255, 255, 255).getRGB());
             }  else {
             
-                 // asignamos el valor al filtro
-                getFiltroEspacial()[i][j] = new NumeroComplejo(0, 0);
-                // asignamos el valor a la imagen
-                bi.setRGB(i, j, new Color(0, 0, 0).getRGB());
+               // asignamos el valor al filtro
+               getFiltroEspacial()[i][j] = new NumeroComplejo(0, 0);
+               // asignamos el valor a la imagen
+               // bi.setRGB(i, j, new Color(0, 0, 0).getRGB());
             
             }     
         }
     }    
-        
-     return ImageManager.toImage(bi);
+    this.imagen = FiltroFrecuencia.toImageDeComplejo(super.getFiltroEspacial());
     }
     
-    public Image modificarFiltro(int radio){
+    public void modificarFiltro(int radio){
       this.radio = radio;
-      return crearFiltro();
+      crearFiltro();
     }
+
+    /**
+     * @return the imagen
+     */
+    public Image getImagen() {
+        return imagen;
+    }
+    
+    
 }

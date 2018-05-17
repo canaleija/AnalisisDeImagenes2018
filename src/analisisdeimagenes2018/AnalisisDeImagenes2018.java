@@ -23,7 +23,7 @@ public class AnalisisDeImagenes2018 {
      */
     public static void main(String[] args) {
 
-        FiltroButterworthyPasaBajas filtro = new FiltroButterworthyPasaBajas(170, new Dimension(512,512),10);
+        FiltroButterworthyPasaBajas filtro = new FiltroButterworthyPasaBajas(170, new Dimension(512,512),3);
         
         Image ifiltro = filtro.crearFiltro();
         

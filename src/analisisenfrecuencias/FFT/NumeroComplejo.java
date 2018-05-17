@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package analisisenfrecuencias.filtros;
+package analisisenfrecuencias.FFT;
 
 /**
  *
@@ -19,24 +19,34 @@ public class NumeroComplejo {
         this.imaginaria = imaginaria;
     }
     public NumeroComplejo(NumeroComplejo complejo){
-      this(complejo.getReal(),complejo.imaginaria);   
+      this(complejo.getParteReal(),complejo.getParteImaginaria());   
     }
 
     /**
      * @return the real
      */
-    public double getReal() {
+    public double getParteReal() {
         return real;
     }
 
     /**
      * @return the imaginaria
      */
-    public double getImaginaria() {
+    public double getParteImaginaria() {
         return imaginaria;
     }
     
-    
+    public NumeroComplejo sumar(NumeroComplejo segundo) {
+                //obtiene la referencia al objeto
+		NumeroComplejo primero = this; 
+		double real = primero.real + segundo.real;
+		double imag = primero.imaginaria + segundo.imaginaria;
+		return new NumeroComplejo(real, imag);
+	}
+
+	public NumeroComplejo producto(double multiplicador) {
+		return new NumeroComplejo(real * multiplicador, imaginaria * multiplicador);
+	}
     
     
 }

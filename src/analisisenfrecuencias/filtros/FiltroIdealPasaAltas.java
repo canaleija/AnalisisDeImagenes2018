@@ -5,6 +5,7 @@
  */
 package analisisenfrecuencias.filtros;
 
+import analisisenfrecuencias.FFT.NumeroComplejo;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
@@ -27,7 +28,7 @@ public class FiltroIdealPasaAltas extends FiltroFrecuencia{
     }
    
     @Override
-    public Image crearFiltro() {
+    public void crearFiltro() {
        // incializar el buffer
         BufferedImage bi = new BufferedImage((int)dim.getWidth(),
                      (int)dim.getHeight(), BufferedImage.TYPE_INT_ARGB);
