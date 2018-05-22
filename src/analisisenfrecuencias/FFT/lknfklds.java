@@ -5,12 +5,13 @@
  */
 package analisisenfrecuencias.FFT;
 
+import analisisenfrecuencias.filtros.FiltroFrecuencia;
+import analisisenfrecuencias.filtros.FiltroIdealPasaBajas;
 import gui.ImageJFrame;
-import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import lectura.ImageManager;
-import org.jfree.chart.ChartColor;
 
 /**
  *
@@ -27,7 +28,19 @@ public class lknfklds {
       Gestor gestor = new Gestor(ImageManager.toBufferedImage(imagenO));
       BufferedImage iFre = gestor.obtenerImagenFrecuencias(true);
       ImageJFrame frame2 = new ImageJFrame(ImageManager.toImage(iFre));
+     
+      // creamos el filtro
+        FiltroIdealPasaBajas fipb = new FiltroIdealPasaBajas(30,new Dimension(512, 512));
+        fipb.crearFiltro();
+        NumeroComplejo [][] filtro = fipb.getFiltroEspacial();
+        ImageJFrame frameFil = new ImageJFrame(fipb.getImagen());
+     gestor.aplicarFiltro(filtro);
       
+      
+      BufferedImage imagenEspacial = gestor.obtenerImagenEspacial();
+       ImageJFrame frame = new ImageJFrame(ImageManager.toImage(imagenEspacial));
+     
+    
     }
     
 }

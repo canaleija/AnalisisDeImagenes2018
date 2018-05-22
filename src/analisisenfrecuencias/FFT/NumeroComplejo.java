@@ -11,8 +11,8 @@ package analisisenfrecuencias.FFT;
  */
 public class NumeroComplejo {
     
-    private final double real;
-    private final double imaginaria;
+    private  double real;
+    private  double imaginaria;
 
     public NumeroComplejo(double real, double imaginaria) {
         this.real = real;
