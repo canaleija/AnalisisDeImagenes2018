@@ -11,7 +11,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
-import oracle.jrockit.jfr.tools.ConCatRepository;
 
 /**
  *
@@ -51,13 +50,14 @@ public class Gestor {
         for (int x = 0; x < this.imagenOriginal.getWidth(); x++) {
             for (int y = 0; y < this.imagenOriginal.getHeight();y++) {
                 // obtener el color el RGB de la parte de frecuencias
+                if (filtro[x][y].getParteReal()<1){
                 int rgb = obtenerPixelDominioFrecuencias(x,y,true);
                 Color aux = new Color(rgb);
                 int r = (int) (aux.getRed() * filtro[x][y].getParteReal());
                 int g = (int) (aux.getGreen()* filtro[x][y].getParteReal());
                 int b = (int) (aux.getBlue() * filtro[x][y].getParteReal());
                 aux = new Color(r, g, b);
-                setPixelDominioFrecuencias(x,y,true,aux.getRGB());
+                setPixelDominioFrecuencias(x,y,true,aux.getRGB());}
             }
         }
 
@@ -118,7 +118,6 @@ public class Gestor {
 
                     int rgb = HerramientasColor.acumularColor(aux.getRGB(x, y), color);
                     aux.setRGB(x, y, rgb);
-
                 }
             }
         }

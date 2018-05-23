@@ -5,12 +5,15 @@
  */
 package analisisdeimagenes2018;
 
-import analisisenfrecuencias.filtros.FiltroButterworthyPasaBajas;
-import analisisenfrecuencias.filtros.FiltroIdealPasaAltas;
+import analisisenfrecuencias.FFT.Gestor;
+import analisisenfrecuencias.FFT.NumeroComplejo;
+
 import analisisenfrecuencias.filtros.FiltroIdealPasaBajas;
 import gui.ImageJFrame;
 import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
+import lectura.ImageManager;
 
 /**
  *
@@ -23,11 +26,24 @@ public class AnalisisDeImagenes2018 {
      */
     public static void main(String[] args) {
 
-        FiltroButterworthyPasaBajas filtro = new FiltroButterworthyPasaBajas(170, new Dimension(512,512),3);
-        
-        Image ifiltro = filtro.crearFiltro();
-        
-        ImageJFrame frame = new ImageJFrame(ifiltro);
+       Image imagenO = ImageManager.openImage();
+      ImageJFrame frame1 = new ImageJFrame(imagenO);
+      Gestor gestor = new Gestor(ImageManager.toBufferedImage(imagenO));
+      BufferedImage iFre = gestor.obtenerImagenFrecuencias(true);
+      ImageJFrame frame2 = new ImageJFrame(ImageManager.toImage(iFre));
+     
+      // creamos el filtro
+        FiltroIdealPasaBajas fipb = new FiltroIdealPasaBajas(35,new Dimension(512, 512));
+        fipb.crearFiltro();
+        NumeroComplejo [][] filtro = fipb.getFiltroEspacial();
+        ImageJFrame frameFil = new ImageJFrame(fipb.getImagen());
+     gestor.aplicarFiltro(filtro);
+      
+      
+      BufferedImage imagenEspacial = gestor.obtenerImagenEspacial();
+       ImageJFrame frame = new ImageJFrame(ImageManager.toImage(imagenEspacial));
+     
+    
     }
     
 }
